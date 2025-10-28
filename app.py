@@ -4,7 +4,7 @@ import pickle
 import sklearn
 
 # Load trained Random Forest model
-with open("rf_model.pkl", "rb") as file:
+with open("rff_model.pkl", "rb") as file:
     model = pickle.load(file)
 
 # App configuration
@@ -35,4 +35,5 @@ try:
 except Exception as e:
 
     st.warning("Could not load feature names from the model. Please ensure the model was trained using scikit-learn ≥ 1.0")
+
 
