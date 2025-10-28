@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import sklearn
 
 # Load trained Random Forest model
 with open("rf_model.pkl", "rb") as file:
@@ -32,4 +33,5 @@ try:
             st.success("The company is **Non Bankrupt**")
 
 except Exception as e:
+
     st.warning("Could not load feature names from the model. Please ensure the model was trained using scikit-learn ≥ 1.0")
