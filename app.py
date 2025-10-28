@@ -24,7 +24,7 @@ try:
     # Predict button
     if st.button("Predict Bankruptcy"):
         input_df = pd.DataFrame([input_data])
-        result = model.predict(input_df)[0]
+        result = input_df.reindex(columns=model.feature_names_in_, fill_value=0)
 
         st.subheader("Prediction Result:")
         if result == 1:
@@ -35,3 +35,4 @@ try:
 except Exception as e:
 
     st.warning("Could not load feature names from the model. Please ensure the model was trained using scikit-learn ≥ 1.0")
+
