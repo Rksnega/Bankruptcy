@@ -1,15 +1,14 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import sklearn
 
 # Load trained Random Forest model
-with open("rff_model.pkl", "rb") as file:
+with open("rf_model.pkl", "rb") as file:
     model = pickle.load(file)
 
 # App configuration
 st.set_page_config(page_title="Bankruptcy Prediction App", layout="centered")
-st.title("💼 Bankruptcy Prediction using Random Forest")
+st.title("Bankruptcy Prediction using Random Forest")
 
 st.write("Select financial indicator values below to predict whether a company is **Bankrupt** or **Non Bankrupt**.")
 
@@ -24,16 +23,13 @@ try:
     # Predict button
     if st.button("Predict Bankruptcy"):
         input_df = pd.DataFrame([input_data])
-        result = input_df.reindex(columns=model.feature_names_in_, fill_value=0)
+        result = model.predict(input_df)[0]
 
         st.subheader("Prediction Result:")
-        if result == 1:
+        if result == "bankruptcy":
             st.error("The company is **Bankrupt**")
         else:
             st.success("The company is **Non Bankrupt**")
 
 except Exception as e:
-
     st.warning("Could not load feature names from the model. Please ensure the model was trained using scikit-learn ≥ 1.0")
-
-
